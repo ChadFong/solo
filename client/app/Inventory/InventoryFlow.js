@@ -8,8 +8,11 @@ angular.module('inventory', [])
                   'count': 800,
                   'brand': 'Potatoes, Inc.'}
                   ];
+  $scope.productData = {};
   $scope.addData = function($){
-    
+    $scope.data.push({'product': $scope.productData.product,
+                      'count': $scope.productData.count,
+                      'brand': $scope.productData.brand});
   };
 });
 
