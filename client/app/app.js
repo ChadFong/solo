@@ -1,5 +1,6 @@
 angular.module('flowCtrl', [
-  // 'inventory.services',
+  'firebase',
+  'inventory.services',
   'inventory',
   'ngRoute'
 ])

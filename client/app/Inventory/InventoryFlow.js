@@ -1,6 +1,6 @@
 angular.module('inventory', [])
 
-.controller('InventoryController', function($scope){
+.controller('InventoryController', function($scope, Inventory){
   $scope.data = [{'product': 'Mandarins',
                   'count': 400,
                   'brand': 'Cuties'},
@@ -10,9 +10,12 @@ angular.module('inventory', [])
                   ];
   $scope.productData = {};
   $scope.addData = function($){
-    $scope.data.push({'product': $scope.productData.product,
-                      'count': $scope.productData.count,
-                      'brand': $scope.productData.brand});
+    Inventory.addProduct({'product': $scope.productData.product,
+                          'count': $scope.productData.count,
+                          'brand': $scope.productData.brand});
+    // $scope.data.push({'product': $scope.productData.product,
+    //                   'count': $scope.productData.count,
+    //                   'brand': $scope.productData.brand});
   };
 });
 

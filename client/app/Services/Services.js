@@ -1,32 +1,18 @@
-// angular.module('inventory.services', [])
+angular.module('inventory.services', ['firebase'])
 
-// .factory('Links', function ($http) {
-//   //PlaceHolder
+.factory('Inventory', function () {
+  var Inven = new Firebase('https://inventory-flow-ctrl.firebaseio.com/');
 
+  var addProduct = function(data){
+    Inven.push(data);
+  };
 
-//   // return {
-//   //   // PlaceHolder
-//   // };
-// });
+  return {
+    addProduct: addProduct
+  };
+});
 
 
 /*
-<div ng-app="" ng-controller="customersController"> 
-
-<table>
-  <tr ng-repeat="x in names">
-    <td>{{ x.Name }}</td>
-    <td>{{ x.Country }}</td>
-  </tr>
-</table>
-
-</div>
-
-<script>
-function customersController($scope,$http) {
-  $http.get("http://www.w3schools.com/website/Customers_JSON.php")
-  .success(function(response) {$scope.names = response;});
-}
-</script>
 
 */

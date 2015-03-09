@@ -3,26 +3,34 @@
   <head>
     <meta charset="utf-8" />
     <title>Inventory Flow-control</title>
-    <!-- <link rel="stylesheet" type="text/css" href="styles/style.css" /> -->
+    <link rel="stylesheet" type="text/css" href="app/Styles/style.css" />
   </head>
 
   <body>
     <h1>Inventory Flow-Control</h1>
 
-  <ul class='navigation'>
+  <ul class='navigation' display='inline'>
 
     <li><a href='/#/inventory' class='index'>Inventory</a></li>
-    <li><a href='/#/shorten' class='create'>Shorten</a></li>
-    <li><a href='/#/signin' class='logout'>Logout</a></li>
+    <br>
+    <li><a href='/#/shorten' class='create'>Purchasing</a></li>
+    <li><a href='/#/signin' class='logout'>Receiving</a></li>
+    <li><a href='/#/signin' class='logout'>Cold Storage</a></li>
+    <li><a href='/#/signin' class='logout'>Dry Storage</a></li>
+    <li><a href='/#/signin' class='logout'>Kitchen</a></li>
+    <li><a href='/#/signin' class='logout'>Pack Out</a></li>
 
   </ul>
 
     <!-- the ng-view directive is where our templates will be loaded into when naviagted to -->
-    
+
     <div ng-view></div>
 
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="node_modules/angular-route/angular-route.js"></script>
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
+    <script src='app/Services/Services.js'></script>
     <script src="app/app.js"></script>
     <script src="app/Inventory/InventoryFlow.js"></script>
   </body>
