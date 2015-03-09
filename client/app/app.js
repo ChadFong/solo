@@ -9,5 +9,9 @@ angular.module('flowCtrl', [
     .when('/inventory', {
       templateUrl: '/App/Inventory/InventoryView.html',
       controller: 'InventoryController'
+    })
+    .otherwise({
+      templateUrl: '/App/Inventory/InventoryView.html',
+      controller: 'InventoryController'
     });
 });

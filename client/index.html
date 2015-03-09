@@ -13,17 +13,27 @@
 
     <li><a href='/#/inventory' class='index'>Inventory</a></li>
     <br>
-    <li><a href='/#/shorten' class='create'>Purchasing</a></li>
-    <li><a href='/#/signin' class='logout'>Receiving</a></li>
-    <li><a href='/#/signin' class='logout'>Cold Storage</a></li>
-    <li><a href='/#/signin' class='logout'>Dry Storage</a></li>
-    <li><a href='/#/signin' class='logout'>Kitchen</a></li>
-    <li><a href='/#/signin' class='logout'>Pack Out</a></li>
+    <li><a href='/#/Purchasing' class='create'>Purchasing</a></li>
+    <li><a href='/#/Receiving' class='logout'>Receiving</a></li>
+    <li><a href='/#/ColdStorage' class='logout'>Cold Storage</a></li>
+    <li><a href='/#/DryStorage' class='logout'>Dry Storage</a></li>
+    <li><a href='/#/Kitchen' class='logout'>Kitchen</a></li>
+    <li><a href='/#/PackOut' class='logout'>Pack Out</a></li>
 
   </ul>
 
+    <!-- Search Functionality -->
+    <input type="text" class='search' ng-model='search' placeholder="Search">
+    
+    <!-- Input Functionality --> 
+    <h3>Add to Inventory</h3>
+    <form name='inventoryInput' ng-submit='addData()'>
+      <input type='text'ng-model='productData.product' placeholder='Product Name'>
+      <input type='text'ng-model='productData.count' placeholder='Product Count'>
+      <input type='text'ng-model='productData.brand' placeholder='Product Brand'>
+      <button>Add to Table</button>
+    </form>
     <!-- the ng-view directive is where our templates will be loaded into when naviagted to -->
-
     <div ng-view></div>
 
     <script src="node_modules/angular/angular.min.js"></script>
