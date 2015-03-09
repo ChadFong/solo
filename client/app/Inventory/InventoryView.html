@@ -1,1 +1,10 @@
-Cats!
+<div ng-app='inventory'>
+  <h2>Available Inventory:</h2>
+  <table> 
+    <tr ng-repeat='x in data'>
+      <td>{{x.product}}</td>
+      <td>{{x.count}}</td>
+      <td>{{x.brand}}</td>
+    </tr>
+  </table>
+</div>
