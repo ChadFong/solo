@@ -15,10 +15,15 @@ angular.module('inventory.services', ['firebase'])
     Inven.child(location).push(data);
   };
 
+  var updateInventory = function(location, id, updateObj){
+    Inven.child(location).child(id).update(updateObj);
+  };
+
   return {
     addProduct: addProduct,
     pullData: pullData,
-    transferInventory: transferInventory
+    transferInventory: transferInventory,
+    updateInventory: updateInventory
   };
 });
 
