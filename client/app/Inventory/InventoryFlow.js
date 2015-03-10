@@ -17,12 +17,6 @@ angular.module('inventory', [])
   $scope.transfer = {};
 
   $scope.addData = function(){
-    var submission = {};
-    submission[$scope.productData.product] = {
-      'product': $scope.productData.product,
-      'count': $scope.productData.count,
-      'units': $scope.productData.units
-    };
     Inventory.addProduct($scope.url, $scope.productData.product, {
       'product': $scope.productData.product,
       'count': $scope.productData.count,
@@ -34,7 +28,6 @@ angular.module('inventory', [])
   $scope.getData = function() {
     $scope.data = Inventory.pullData($scope.url);
     $scope.incoming = Inventory.pullData($scope.url + '_Incoming');
-    console.log($scope.data);
   };
 
   $scope.submitTransfer = function(){
@@ -44,10 +37,9 @@ angular.module('inventory', [])
       // Only do transfer if there is an amount being transferred
       if(transfers[product].amount !== null  && transfers[product].amount > 0){
         // Updates inventory count
-        Inventory.updateInventory($scope.url, transfers[product].$id, {'count': transfers[product].count - transfers[product].amount});
+        Inventory.updateInventory($scope.url, transfers[product].product, {'count': transfers[product].count - transfers[product].amount});
         // Adds outgoing product to destination's Incoming Area
-        Inventory.transferInventory(destination, {
-          'ID': transfers[product].$id,
+        Inventory.addProduct(destination, transfers[product].product, {
           'product': transfers[product].product,
           'count': transfers[product].amount,
           'units': transfers[product].units,
@@ -55,14 +47,15 @@ angular.module('inventory', [])
         });
       }
     }
+    $scope.transfer = {};
   };
 
   $scope.transferToggle = function(index){
-    $scope.transfer[index]= $scope.transfer[index] || this.x;
+    $scope.transfer[index]= $scope.transfer[index] || {'product': this.x.product,'count': this.x.count,'units': this.x.units};
     $scope.transfer[index].active = !($scope.transfer[index].active);
     $scope.transfer[index].amount=null;
   };
-
+// DO:
   $scope.acceptTransfer = function(){
     for(var i=0 ; i<incoming.length ; i++){
       //ID is different, we need to be able to identify by product.
