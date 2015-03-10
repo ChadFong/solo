@@ -1,83 +1,79 @@
-<div ng-app='inventory'>
+<!-- Search Functionality -->
+<input type="text" class='search' ng-model='search' placeholder="Search">
+<br>
 
-  <!-- Search Functionality -->
-  <input type="text" class='search' ng-model='search' placeholder="Search">
-  <br>
+<!-- Input Functionality --> 
+<span ng-click='addInv=!addInv'>Add to Inventory</span>
+<form name='inventoryInput' ng-submit='addData()' ng-show='addInv'>
+  <input type='text'ng-model='productData.product' placeholder='Name'>
+  <input type='text'ng-model='productData.count' placeholder='Count'>
+  <input type='text'ng-model='productData.units' placeholder='Unit of Measure'>
+  <button>Add to Table</button>
+</form>
 
-  <!-- Input Functionality --> 
-  <span ng-click='addInv=!addInv'>Add to Inventory</span>
-  <form name='inventoryInput' ng-submit='addData()' ng-show='addInv'>
-    <input type='text'ng-model='productData.product' placeholder='Name'>
-    <input type='text'ng-model='productData.count' placeholder='Count'>
-    <input type='text'ng-model='productData.units' placeholder='Unit of Measure'>
-    <button>Add to Table</button>
-  </form>
+<!-- Transfer Functionality -->
+<span ng-click='initTrans=!initTrans'>Initiate Transfer</span>
 
-  <!-- Transfer Functionality -->
-  <span ng-click='initTrans=!initTrans'>Initiate Transfer</span>
+<div ng-show='initTrans'>
+  <span>Destination: </span>
+  <select ng-model='selection' ng-options='opt.value as opt.label for opt in options'>
+  </select>
+  <button ng-click='submitTransfer()' ng-model='selection'>Transfer to: {{selection}}</button>
 
-  <div ng-show='initTrans'>
-    <span>Destination: </span>
-    <select ng-model='selection' ng-options='opt.value as opt.label for opt in options'>
-    </select>
-    <button ng-click='submitTransfer()' ng-model='selection'>Transfer to: {{selection}}</button>
-
-    <table>
-      <tr>
-        <th>Product Name</th>
-        <th>Count</th>
-        <th>Unit of Measurement</th>
-        <th>Amount to Transfer</th>
-        <th>Remaining in Inventory</th>
-      </tr>
-      <tr ng-repeat="(ind, element) in transfer | filter:search | orderBy: 'product'">
-      <!-- There has to be a sleeker way to have elements show/hide -__- -->
-        <td ng-show='element.active'>{{element.product}}</td>
-        <td ng-show='element.active'>{{element.count}}</td>
-        <td ng-show='element.active'>{{element.units}}</td>
-        <td ng-show='element.active'><input type='text' ng-model='element.amount' placeholder='Amount to Transfer'></td>
-        <td ng-show='element.active'>{{element.count - element.amount}}</td>
-        <td ng-show='element.active' ng-click="transferToggle(ind)">Remove Item</td>
-        </tr>
+  <table>
+    <tr>
+      <th>Product Name</th>
+      <th>Count</th>
+      <th>Unit of Measurement</th>
+      <th>Amount to Transfer</th>
+      <th>Remaining in Inventory</th>
     </tr>
-    </table>
-  </div>
+    <tr ng-repeat="(ind, element) in transfer | filter:search | orderBy: 'product'">
+    <!-- There has to be a sleeker way to have elements show/hide -__- -->
+      <td ng-show='element.active'>{{element.product}}</td>
+      <td ng-show='element.active'>{{element.count}}</td>
+      <td ng-show='element.active'>{{element.units}}</td>
+      <td ng-show='element.active'><input type='text' ng-model='element.amount' placeholder='Amount to Transfer'></td>
+      <td ng-show='element.active'>{{element.count - element.amount}}</td>
+      <td ng-show='element.active' ng-click="transferToggle(ind)">Remove Item</td>
+      </tr>
+  </tr>
+  </table>
+</div>
 <br><br>
-  <span ng-click='inven=!inven'>Incoming/Current Inventory</span>
-  <div ng-show='!inven'>
-    <!-- Incoming Table -->
-    <h2>Incoming Inventory: {{url}}</h2>  
-    <button ng-click='confirmTransfer()'>Confirm Receipt</button>
-    <table> 
-      <tr>
-        <th>Product Name</th>
-        <th>Count</th>
-        <th>Unit of Measurement</th>
-        <th>Amount Received</th>
-      </tr>
-      <tr ng-repeat="x in incoming | filter:search | orderBy: 'product'">
-        <td>{{x.product}}</td>
-        <td>{{x.count}}</td>
-        <td>{{x.units}}</td>
-        <td><input type='text' ng-model='x.received' placeholder='Amount Received'></td>
-      </tr>
-    </table>
-  </div>
-  <div ng-show='inven'>
-    <!-- Inventory Table -->
-    <h2>Available Inventory: {{url}}</h2>
-    <table> 
-      <tr>
-        <th>Product Name</th>
-        <th>Count</th>
-        <th>Unit of Measurement</th>
-      </tr>
-      <tr ng-repeat="x in data | filter:search | orderBy: 'product'" ng-click='transferToggle($index)'>
-        <td>{{x.product}}</td>
-        <td>{{x.count}}</td>
-        <td>{{x.units}}</td>
-      </tr>
-    </table>
-  </div>
-
+<span ng-click='inven=!inven'>Incoming/Current Inventory</span>
+<div ng-show='!inven'>
+  <!-- Incoming Table -->
+  <h2>Incoming Inventory: {{url}}</h2>  
+  <button ng-click='confirmTransfer()'>Confirm Receipt</button>
+  <table> 
+    <tr>
+      <th>Product Name</th>
+      <th>Count</th>
+      <th>Unit of Measurement</th>
+      <th>Amount Received</th>
+    </tr>
+    <tr ng-repeat="x in incoming | filter:search | orderBy: 'product'">
+      <td>{{x.product}}</td>
+      <td>{{x.count}}</td>
+      <td>{{x.units}}</td>
+      <td><input type='text' ng-model='x.received' placeholder='Amount Received'></td>
+    </tr>
+  </table>
+</div>
+<div ng-show='inven'>
+  <!-- Inventory Table -->
+  <h2>Available Inventory: {{url}}</h2>
+  <table> 
+    <tr>
+      <th>Product Name</th>
+      <th>Count</th>
+      <th>Unit of Measurement</th>
+    </tr>
+    <tr ng-repeat="x in data | filter:search | orderBy: 'product'" ng-click='transferToggle($index)'>
+      <td>{{x.product}}</td>
+      <td>{{x.count}}</td>
+      <td>{{x.units}}</td>
+    </tr>
+  </table>
 </div>
