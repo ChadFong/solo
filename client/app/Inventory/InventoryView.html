@@ -18,6 +18,8 @@
   <span>Destination: </span>
   <select ng-model='selection' ng-options='opt.value as opt.label for opt in options'>
   </select>
+  <span>Checked out by:</span>
+  <input type='text' ng-model='runner' placeholder="Runner's Name">
   <button ng-click='submitTransfer()' ng-model='selection'>Transfer to: {{selection}}</button>
 
   <table>
@@ -40,10 +42,14 @@
   </tr>
   </table>
 </div>
+
 <br><br>
+
 <span ng-click='inven=!inven'>Incoming/Current Inventory</span>
+<br>
+
 <div ng-show='!inven'>
-  <!-- Incoming Table -->
+  <!-- Incoming Inventory-->
   <h2>Incoming Inventory: {{url}}</h2>  
   <button ng-click='confirmTransfer()'>Confirm Receipt</button>
   <table> 
@@ -52,17 +58,20 @@
       <th>Count</th>
       <th>Unit of Measurement</th>
       <th>Amount Received</th>
+      <th>Runner</th>
     </tr>
     <tr ng-repeat="x in incoming | filter:search | orderBy: 'product'">
       <td>{{x.product}}</td>
       <td>{{x.count}}</td>
       <td>{{x.units}}</td>
       <td><input type='text' ng-model='x.received' placeholder='Amount Received'></td>
+      <td>{{x.runner}}</td>
     </tr>
   </table>
 </div>
-<div ng-show='inven'>
+
   <!-- Inventory Table -->
+<div ng-show='inven'>
   <h2>Available Inventory: {{url}}</h2>
   <table> 
     <tr>

@@ -33,15 +33,19 @@ angular.module('inventory', [])
     var destination = $scope.selection + '_Incoming';
     var transfers = $scope.transfer;
     for(var product in transfers){
-      // Updates inventory count
-      Inventory.updateInventory($scope.url, transfers[product].$id, {'count': transfers[product].count - transfers[product].amount});
-      // Adds outgoing product to destination's Incoming Area
-      Inventory.transferInventory(destination, {
-        'ID': transfers[product].$id,
-        'product': transfers[product].product,
-        'count': transfers[product].amount,
-        'units': transfers[product].units
-      });
+      // Only do transfer if there is an amount being transferred
+      if(transfers[product].amount !== null  && transfers[product].amount > 0){
+        // Updates inventory count
+        Inventory.updateInventory($scope.url, transfers[product].$id, {'count': transfers[product].count - transfers[product].amount});
+        // Adds outgoing product to destination's Incoming Area
+        Inventory.transferInventory(destination, {
+          'ID': transfers[product].$id,
+          'product': transfers[product].product,
+          'count': transfers[product].amount,
+          'units': transfers[product].units,
+          'runner': $scope.runner
+        });
+      }
     }
   };
 
