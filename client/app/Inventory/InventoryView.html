@@ -42,20 +42,42 @@
     </tr>
     </table>
   </div>
-  
+<br><br>
+  <span ng-click='inven=!inven'>Incoming/Current Inventory</span>
+  <div ng-show='!inven'>
+    <!-- Incoming Table -->
+    <h2>Incoming Inventory: {{url}}</h2>  
+    <button ng-click='confirmTransfer()'>Confirm Receipt</button>
+    <table> 
+      <tr>
+        <th>Product Name</th>
+        <th>Count</th>
+        <th>Unit of Measurement</th>
+        <th>Amount Received</th>
+      </tr>
+      <tr ng-repeat="x in incoming | filter:search | orderBy: 'product'">
+        <td>{{x.product}}</td>
+        <td>{{x.count}}</td>
+        <td>{{x.units}}</td>
+        <td><input type='text' ng-model='x.received' placeholder='Amount Received'></td>
+      </tr>
+    </table>
+  </div>
+  <div ng-show='inven'>
+    <!-- Inventory Table -->
+    <h2>Available Inventory: {{url}}</h2>
+    <table> 
+      <tr>
+        <th>Product Name</th>
+        <th>Count</th>
+        <th>Unit of Measurement</th>
+      </tr>
+      <tr ng-repeat="x in data | filter:search | orderBy: 'product'" ng-click='transferToggle($index)'>
+        <td>{{x.product}}</td>
+        <td>{{x.count}}</td>
+        <td>{{x.units}}</td>
+      </tr>
+    </table>
+  </div>
 
-  <!-- Inventory Table -->
-  <h2>Available Inventory: {{url}}</h2>
-  <table> 
-    <tr>
-      <th>Product Name</th>
-      <th>Count</th>
-      <th>Unit of Measurement</th>
-    <tr>
-    <tr ng-repeat="x in data | filter:search | orderBy: 'product'" ng-click='transferToggle($index)'>
-      <td>{{x.product}}</td>
-      <td>{{x.count}}</td>
-      <td>{{x.units}}</td>
-    </tr>
-  </table>
 </div>
