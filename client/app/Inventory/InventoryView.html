@@ -1,12 +1,30 @@
 <div ng-app='inventory'>
+
+  <!-- Search Functionality -->
+  <input type="text" class='search' ng-model='search' placeholder="Search">
   
+  <!-- Input Functionality --> 
+  <h3>Add to Inventory</h3>
+  <form name='inventoryInput' ng-submit='addData()'>
+    <input type='text'ng-model='productData.product' placeholder='Name'>
+    <input type='text'ng-model='productData.count' placeholder='Count'>
+    <input type='text'ng-model='productData.units' placeholder='Unit of Measure'>
+    <button>Add to Table</button>
+  </form>
+
   <!-- Inventory Table -->
-  <h2>Available Inventory:  {{ $location }}</h2>
+  <h2>Available Inventory: {{url}}</h2>
+  <button ng-click='transfer.active = !transfer.active'>Initiate Transfer</button>
+  <button ng-click='submitTransfer()' ng-Show='transfer.active'>Complete Transfer</button>
   <table> 
     <tr ng-repeat="x in data | filter:search | orderBy: 'product'">
-      <td>{{x.product}}</td>
-      <td>{{x.count}}</td>
-      <td>{{x.brand}}</td>
+      <td ng-click='transfer[$index].active = !transfer[$index].active'>{{x.product}}</td>
+      <td ng-click='transfer[$index].active = !transfer[$index].active'>{{x.count}}</td>
+      <td ng-click='transfer[$index].active = !transfer[$index].active'>{{x.units}}</td>
+
+      <td><input ng-Show='transfer[$index].active' type='text' ng-model='transfer[$index].amount' placeholder='Amount to Transfer'></td>
+      <td><input ng-Show='transfer[$index].active' type='text' ng-model='transfer[$index].destination' placeholder='Transfer Destination'></td>
+      <td ng-click='openTransfer()' ng-Show='transfer[$index].active'>Save Transfer Request</td>
     </tr>
   </table>
 </div>

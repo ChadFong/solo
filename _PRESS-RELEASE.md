@@ -39,7 +39,7 @@ Once the project moves into development, the press release can be used as a touc
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
-  "Blue Apron, I made this for you!"
+  "A revolutionary new take on warehouse inventory management"
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
