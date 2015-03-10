@@ -11,9 +11,14 @@ angular.module('inventory.services', ['firebase'])
     return $firebaseArray(Inven.child(location));
   };
 
+  var transferInventory = function(location, data){
+    Inven.child(location).push(data);
+  };
+
   return {
     addProduct: addProduct,
-    pullData: pullData
+    pullData: pullData,
+    transferInventory: transferInventory
   };
 });
 

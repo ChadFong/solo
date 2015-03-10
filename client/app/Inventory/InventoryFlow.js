@@ -26,8 +26,21 @@ angular.module('inventory', [])
   };
 
   $scope.submitTransfer = function(){
-    console.log($scope.selection);
-    console.log($scope.transfer);
+    var destination = $scope.selection + '_Inbound';
+    var transfers = $scope.transfer;
+    for(var product in transfers){
+      /*
+We need to: 
+  Remove the transfers items from the inventory count
+  Send the amount to the transfering database
+      */
+      Inventory.transferInventory(destination, {
+        'product': transfers[product].product,
+        'count': transfers[product].amount,
+        'units': transfers[product].units
+      });
+      console.log(transfers[product]);
+    }
   };
 
   $scope.transferToggle = function(index){
