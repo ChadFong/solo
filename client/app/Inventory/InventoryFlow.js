@@ -5,6 +5,13 @@ angular.module('inventory', [])
   $scope.data = [];
   $scope.url = $location.$$url.slice(1);
   $scope.transfer = {};
+  $scope.options = [
+    {label: 'Receiving', value: 'Receiving'},
+    {label: 'Cold Storage', value: 'ColdStorage'},
+    {label: 'Dry Storage', value: 'DryStorage'},
+    {label: 'Pack Out', value: 'PackOut'},
+    {label: 'Kitchen', value: 'Kitchen'}
+  ];
 
   $scope.addData = function(){
     Inventory.addProduct($scope.url ,

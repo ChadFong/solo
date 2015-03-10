@@ -18,13 +18,9 @@
 
   <div ng-show='initTrans'>
     <span>Destination: </span>
-    <select>
-      <option value="Receiving">Receiving</option>
-      <option value="ColdStorage">Cold Storage</option>
-      <option value="DryStorage">Dry Storage</option>
-      <option value="PackOut">Pack Out</option>
-      <option value="Kitchen">Kitchen</option>
+    <select ng-model='selection' ng-options='opt.value as opt.label for opt in options'>
     </select>
+    <button ng-model='selection'>Transfer to: {{selection}}</button>
 
     <table>
       <tr>
@@ -41,7 +37,6 @@
         <td ng-show='element.active'>{{element.units}}</td>
         <td ng-show='element.active'><input type='text' ng-model='transfer[$index].amount' placeholder='Amount to Transfer'></td>
         <td ng-show='element.active'>{{element.count - transfer[$index].amount}}</td>
-        <td ng-show='element.active'>Save Transfer Request</td>
         <td ng-show='element.active' ng-click="element.active = !element.active">Remove Item</td>
         </tr>
     </tr>
