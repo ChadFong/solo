@@ -48,10 +48,10 @@
 <span ng-click='inven=!inven'>Incoming/Current Inventory</span>
 <br>
 
-<div ng-show='!inven'>
+<div ng-show='inven'>
   <!-- Incoming Inventory-->
   <h2>Incoming Inventory: {{url}}</h2>  
-  <button ng-click='confirmTransfer()'>Confirm Receipt</button>
+  <button ng-click='acceptTransfer()'>Confirm Receipt</button>
   <table> 
     <tr>
       <th>Product Name</th>
@@ -71,7 +71,7 @@
 </div>
 
   <!-- Inventory Table -->
-<div ng-show='inven'>
+<div ng-show='!inven'>
   <h2>Available Inventory: {{url}}</h2>
   <table> 
     <tr>

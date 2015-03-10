@@ -17,16 +17,24 @@ angular.module('inventory', [])
   $scope.transfer = {};
 
   $scope.addData = function(){
-    Inventory.addProduct($scope.url ,
-      {'product': $scope.productData.product,
-       'count': $scope.productData.count,
-       'units': $scope.productData.units});
+    var submission = {};
+    submission[$scope.productData.product] = {
+      'product': $scope.productData.product,
+      'count': $scope.productData.count,
+      'units': $scope.productData.units
+    };
+    Inventory.addProduct($scope.url, $scope.productData.product, {
+      'product': $scope.productData.product,
+      'count': $scope.productData.count,
+      'units': $scope.productData.units
+    });
     $scope.productData = {};
   };
 
   $scope.getData = function() {
     $scope.data = Inventory.pullData($scope.url);
     $scope.incoming = Inventory.pullData($scope.url + '_Incoming');
+    console.log($scope.data);
   };
 
   $scope.submitTransfer = function(){
@@ -53,10 +61,9 @@ angular.module('inventory', [])
     $scope.transfer[index]= $scope.transfer[index] || this.x;
     $scope.transfer[index].active = !($scope.transfer[index].active);
     $scope.transfer[index].amount=null;
-    console.log($scope.transfer[index]);
   };
 
-  $scope.confirmTransfer = function(){
+  $scope.acceptTransfer = function(){
     for(var i=0 ; i<incoming.length ; i++){
       //ID is different, we need to be able to identify by product.
       // Inventory.updateInventory($scope.url, );

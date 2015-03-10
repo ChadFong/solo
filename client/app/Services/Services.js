@@ -3,8 +3,8 @@ angular.module('inventory.services', ['firebase'])
 .factory('Inventory', function ($firebaseArray) {
   var Inven = new Firebase('https://inventory-flow-ctrl.firebaseio.com/');
 
-  var addProduct = function(location, data){
-    Inven.child(location).push(data);
+  var addProduct = function(location, product, data){
+    Inven.child(location).child(product).set(data);
   };
 
   var pullData = function(location) {
