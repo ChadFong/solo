@@ -2,29 +2,65 @@
 
   <!-- Search Functionality -->
   <input type="text" class='search' ng-model='search' placeholder="Search">
-  
+  <br>
+
   <!-- Input Functionality --> 
-  <h3>Add to Inventory</h3>
-  <form name='inventoryInput' ng-submit='addData()'>
+  <span ng-click='addInv=!addInv'>Add to Inventory</span>
+  <form name='inventoryInput' ng-submit='addData()' ng-show='addInv'>
     <input type='text'ng-model='productData.product' placeholder='Name'>
     <input type='text'ng-model='productData.count' placeholder='Count'>
     <input type='text'ng-model='productData.units' placeholder='Unit of Measure'>
     <button>Add to Table</button>
   </form>
 
+  <!-- Transfer Functionality -->
+  <span ng-click='initTrans=!initTrans'>Initiate Transfer</span>
+
+  <div ng-show='initTrans'>
+    <span>Destination: </span>
+    <select>
+      <option value="Receiving">Receiving</option>
+      <option value="ColdStorage">Cold Storage</option>
+      <option value="DryStorage">Dry Storage</option>
+      <option value="PackOut">Pack Out</option>
+      <option value="Kitchen">Kitchen</option>
+    </select>
+
+    <table>
+      <tr>
+        <th>Product Name</th>
+        <th>Count</th>
+        <th>Unit of Measurement</th>
+        <th>Amount to Transfer</th>
+        <th>Remaining in Inventory</th>
+      </tr>
+      <tr ng-repeat="element in transfer | filter:search | orderBy: 'product'">
+      <!-- There has to be a sleeker way to have elements show/hide -__- -->
+        <td ng-show='element.active'>{{element.product}}</td>
+        <td ng-show='element.active'>{{element.count}}</td>
+        <td ng-show='element.active'>{{element.units}}</td>
+        <td ng-show='element.active'><input type='text' ng-model='transfer[$index].amount' placeholder='Amount to Transfer'></td>
+        <td ng-show='element.active'>{{element.count - transfer[$index].amount}}</td>
+        <td ng-show='element.active'>Save Transfer Request</td>
+        <td ng-show='element.active' ng-click="element.active = !element.active">Remove Item</td>
+        </tr>
+    </tr>
+    </table>
+  </div>
+  
+
   <!-- Inventory Table -->
   <h2>Available Inventory: {{url}}</h2>
-  <button ng-click='transfer.active = !transfer.active'>Initiate Transfer</button>
-  <button ng-click='submitTransfer()' ng-Show='transfer.active'>Complete Transfer</button>
   <table> 
-    <tr ng-repeat="x in data | filter:search | orderBy: 'product'">
-      <td ng-click='transfer[$index].active = !transfer[$index].active'>{{x.product}}</td>
-      <td ng-click='transfer[$index].active = !transfer[$index].active'>{{x.count}}</td>
-      <td ng-click='transfer[$index].active = !transfer[$index].active'>{{x.units}}</td>
-
-      <td><input ng-Show='transfer[$index].active' type='text' ng-model='transfer[$index].amount' placeholder='Amount to Transfer'></td>
-      <td><input ng-Show='transfer[$index].active' type='text' ng-model='transfer[$index].destination' placeholder='Transfer Destination'></td>
-      <td ng-click='openTransfer()' ng-Show='transfer[$index].active'>Save Transfer Request</td>
+    <tr>
+      <th>Product Name</th>
+      <th>Count</th>
+      <th>Unit of Measurement</th>
+    <tr>
+    <tr ng-repeat="x in data | filter:search | orderBy: 'product'" ng-click='transferToggle($index)'>
+      <td>{{x.product}}</td>
+      <td>{{x.count}}</td>
+      <td>{{x.units}}</td>
     </tr>
   </table>
 </div>

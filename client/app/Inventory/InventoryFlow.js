@@ -22,8 +22,9 @@ angular.module('inventory', [])
     console.log($scope.transfer);
   };
 
-  $scope.openTransfer = function(){
-    console.log($scope);
+  $scope.transferToggle = function(index){
+    $scope.transfer[index]= $scope.transfer[index] || this.x;
+    $scope.transfer[index].active = !($scope.transfer[index].active);
   };
 
   $scope.getData();
