@@ -26,12 +26,15 @@ angular.module('inventory', [])
   };
 
   $scope.submitTransfer = function(){
+    console.log($scope.selection);
     console.log($scope.transfer);
   };
 
   $scope.transferToggle = function(index){
     $scope.transfer[index]= $scope.transfer[index] || this.x;
     $scope.transfer[index].active = !($scope.transfer[index].active);
+    $scope.transfer[index].amount=null;
+    console.log($scope.transfer[index]);
   };
 
   $scope.getData();

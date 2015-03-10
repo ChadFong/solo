@@ -20,7 +20,7 @@
     <span>Destination: </span>
     <select ng-model='selection' ng-options='opt.value as opt.label for opt in options'>
     </select>
-    <button ng-model='selection'>Transfer to: {{selection}}</button>
+    <button ng-click='submitTransfer()' ng-model='selection'>Transfer to: {{selection}}</button>
 
     <table>
       <tr>
@@ -35,7 +35,7 @@
         <td ng-show='element.active'>{{element.product}}</td>
         <td ng-show='element.active'>{{element.count}}</td>
         <td ng-show='element.active'>{{element.units}}</td>
-        <td ng-show='element.active'><input type='text' ng-model='transfer[$index].amount' placeholder='Amount to Transfer'></td>
+        <td ng-show='element.active'><input type='text' ng-model='element.amount' placeholder='Amount to Transfer'></td>
         <td ng-show='element.active'>{{element.count - transfer[$index].amount}}</td>
         <td ng-show='element.active' ng-click="element.active = !element.active">Remove Item</td>
         </tr>
