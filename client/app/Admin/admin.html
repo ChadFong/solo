@@ -9,3 +9,21 @@
 <br>
 <select ng-model='selection' ng-options='opt.value as opt.label for opt in options'></select>
 <button>Set as Master</button>
+
+<h2>Missed Inventory</h2>
+<span>Search:</span><input type="text" class='search' ng-model='search' placeholder="Search">
+<table> 
+  <tr>
+    <th>Product</th>
+    <th>Count</th>
+    <th>Runner</th>
+    <th>Date</th>
+  </tr>
+  <tr ng-repeat="(key, value) in missed | filter:search | orderBy: 'time'">
+    <td>{{value.product}}</td>
+    <td>{{value.missed}}</td>
+    <td>{{value.runner}}</td>
+    <td>{{value.time}}</td>
+  </tr>
+</table>
+

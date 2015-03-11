@@ -8,7 +8,7 @@ angular.module('inventory.services', ['firebase'])
   };
 
   var missedProd = function(product, data){
-    Inven.child('Admin').child(product).push(data);
+    Inven.child('Admin').push(data);
   };
 
   var pullData = function(location) {

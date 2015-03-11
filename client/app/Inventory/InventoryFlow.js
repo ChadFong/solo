@@ -79,8 +79,7 @@ angular.module('inventory', [])
 
         // Register Transaction:
         Inventory.addProduct(staging, inboundProduct.product, null);
-
-
+        
         // Log Missed, if any
         if(missed > 0){
           Inventory.missedProd(inboundProduct.product, {

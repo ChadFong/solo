@@ -1,7 +1,7 @@
 angular.module('admin', [])
 
-.controller('AdminController', function($scope){
-
+.controller('AdminController', function($scope, Inventory){
+  $scope.missed = [];
   $scope.options = [
       {label: 'Receiving', value: 'Receiving'},
       {label: 'Cold Storage', value: 'ColdStorage'},
@@ -9,6 +9,10 @@ angular.module('admin', [])
       {label: 'Pack Out', value: 'PackOut'},
       {label: 'Kitchen', value: 'Kitchen'}
     ];
+  $scope.getMissed = function(){
+    $scope.missed = Inventory.pullData('Admin');
+  };
 
+  $scope.getMissed();
 });
 
