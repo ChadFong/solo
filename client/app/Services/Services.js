@@ -7,6 +7,10 @@ angular.module('inventory.services', ['firebase'])
     Inven.child(location).child(product).set(data);
   };
 
+  var missedProd = function(product, data){
+    Inven.child('Admin').child(product).push(data);
+  };
+
   var pullData = function(location) {
     return $firebaseArray(Inven.child(location));
   };
@@ -19,11 +23,19 @@ angular.module('inventory.services', ['firebase'])
     Inven.child(location).child(product).update(data);
   };
 
+  var timestamp = function(){
+    var date = new Date();
+    var result = date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear() + ' ' + date.getHours() +':'+date.getMinutes();
+    return result;
+  };
+
   return {
     addProduct: addProduct,
     pullData: pullData,
     pullObj: pullObj,
-    updateInventory: updateInventory
+    updateInventory: updateInventory,
+    missedProd: missedProd,
+    timestamp: timestamp
   };
 });
 

@@ -56,12 +56,13 @@ angular.module('inventory', [])
     $scope.transfer[index].active = !($scope.transfer[index].active);
     $scope.transfer[index].amount=null;
   };
-// DO:
+
   $scope.acceptTransfer = function(){
     for(var i=0 ; i<$scope.incoming.length ; i++){
       var inboundProduct = $scope.incoming[i];
       var currInven;
       var staging = $scope.url + '_Incoming';
+
       if(inboundProduct.received){
         var missed = parseInt(inboundProduct.count) - inboundProduct.received;
 
@@ -77,11 +78,18 @@ angular.module('inventory', [])
         });
 
         // Register Transaction:
-        // Inventory.updateInventory(staging, inboundProduct.product, null);
+        Inventory.addProduct(staging, inboundProduct.product, null);
 
 
         // Log Missed, if any
-        // Inventory.updateInventory()
+        if(missed > 0){
+          Inventory.missedProd(inboundProduct.product, {
+            'product': inboundProduct.product,
+            'missed': missed,
+            'runner': inboundProduct.runner,
+            'time': Inventory.timestamp()
+          });
+        }
       }
     }
   };
