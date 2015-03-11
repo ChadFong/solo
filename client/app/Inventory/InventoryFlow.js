@@ -2,6 +2,7 @@ angular.module('inventory', [])
 
 .controller('InventoryController', function($scope, $location, Inventory){
   $scope.data = [];
+  $scope.dataObj = {};
   $scope.incoming = [];
 
   $scope.url = $location.$$url.slice(1);
@@ -27,6 +28,7 @@ angular.module('inventory', [])
 
   $scope.getData = function() {
     $scope.data = Inventory.pullData($scope.url);
+    $scope.dataObj = Inventory.pullObj($scope.url);
     $scope.incoming = Inventory.pullData($scope.url + '_Incoming');
   };
 
@@ -34,11 +36,10 @@ angular.module('inventory', [])
     var destination = $scope.selection + '_Incoming';
     var transfers = $scope.transfer;
     for(var product in transfers){
-      // Only do transfer if there is an amount being transferred
       if(transfers[product].amount !== null  && transfers[product].amount > 0){
-        // Updates inventory count
+
         Inventory.updateInventory($scope.url, transfers[product].product, {'count': transfers[product].count - transfers[product].amount});
-        // Adds outgoing product to destination's Incoming Area
+
         Inventory.addProduct(destination, transfers[product].product, {
           'product': transfers[product].product,
           'count': transfers[product].amount,
@@ -57,9 +58,31 @@ angular.module('inventory', [])
   };
 // DO:
   $scope.acceptTransfer = function(){
-    for(var i=0 ; i<incoming.length ; i++){
-      //ID is different, we need to be able to identify by product.
-      // Inventory.updateInventory($scope.url, );
+    for(var i=0 ; i<$scope.incoming.length ; i++){
+      var inboundProduct = $scope.incoming[i];
+      var currInven;
+      var staging = $scope.url + '_Incoming';
+      if(inboundProduct.received){
+        var missed = parseInt(inboundProduct.count) - inboundProduct.received;
+
+        if($scope.dataObj[inboundProduct.product]){currInven = $scope.dataObj[inboundProduct.product].count;}
+        else{currInven = 0;}
+        console.log(currInven);
+
+        // Log Received:
+        Inventory.updateInventory($scope.url, inboundProduct.product, {
+          'product': inboundProduct.product,
+          'count': parseInt(inboundProduct.received, 10) + parseInt(currInven, 10),
+          'units': inboundProduct.units
+        });
+
+        // Register Transaction:
+        // Inventory.updateInventory(staging, inboundProduct.product, null);
+
+
+        // Log Missed, if any
+        // Inventory.updateInventory()
+      }
     }
   };
 
