@@ -11,6 +11,7 @@ angular.module('admin', [])
     ];
   $scope.getMissed = function(){
     $scope.missed = Inventory.pullData('Admin');
+    console.log($scope.missed);
   };
 
   $scope.getMissed();

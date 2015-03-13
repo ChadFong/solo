@@ -4,13 +4,15 @@
     <meta charset="utf-8" />
     <title>Inventory Flow-control</title>
     <link rel="stylesheet" type="text/css" href="app/Styles/style.css" />
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
   </head>
 
   <body>
     <h1>Inventory Flow-Control</h1>
 
     <ul class='navigation' display='inline'>
-      <li><a href='/#/Admin'>Admin</a></li>
+      <li><a ui-sref='admin'>Admin</a></li>
       <br>
       <li><a href='/#/Purchasing'>Purchasing</a></li>
       <li><a href='/#/Receiving'>Receiving</a></li>
@@ -21,10 +23,8 @@
     </ul>
 
     <!-- the ng-view directive is where our templates will be loaded into when naviagted to -->
-    <div ng-view></div>
+    <div ui-view></div>
 
-    <script src="node_modules/angular/angular.min.js"></script>
-    <script src="node_modules/angular-route/angular-route.js"></script>
     <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
     <script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
     <script src='app/Services/Services.js'></script>

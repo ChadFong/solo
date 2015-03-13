@@ -19,7 +19,7 @@
     <th>Runner</th>
     <th>Date</th>
   </tr>
-  <tr ng-repeat="(key, value) in missed | filter:search | orderBy: 'time'">
+  <tr ng-repeat="(key, value) in missed | filter:search | orderBy: 'time' : true">
     <td>{{value.product}}</td>
     <td>{{value.missed}}</td>
     <td>{{value.runner}}</td>
